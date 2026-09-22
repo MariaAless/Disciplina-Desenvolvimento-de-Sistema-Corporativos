@@ -4,6 +4,8 @@ package com.alessandra.sistema_de_biblioteca.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -36,6 +38,18 @@ public class BookModel implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private CategoryModel categoria;
+
+    // LIVRO <-> AUTOR (N:N), tabela associativa LIVRO_AUTOR
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "tb_livro_autor",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id"))
+    private Set<AuthorModel> autores = new HashSet<>();
+
+
+    public Set<AuthorModel> getAutores() { return autores; }
+    public void setAutores(Set<AuthorModel> autores) { this.autores = autores; }
 
     public CategoryModel getCategoria() {
         return categoria;
