@@ -4,6 +4,8 @@ package com.alessandra.sistema_de_biblioteca.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +22,17 @@ public class CategoryModel implements Serializable {
 
     private String descricao;
 
+    @OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
+    private Set<BookModel> livros = new HashSet<>();
+
+
+
+    public Set<BookModel> getLivros() {
+        return livros;
+    }
+    public void setLivros(Set<BookModel> livros) {
+        this.livros = livros;
+    }
 
     public String getDescricao() {
         return descricao;
