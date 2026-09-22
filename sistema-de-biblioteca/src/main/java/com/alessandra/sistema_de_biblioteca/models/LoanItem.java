@@ -9,6 +9,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "TB_ITEM_EMPRESTIMO")
 public class LoanItem implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
