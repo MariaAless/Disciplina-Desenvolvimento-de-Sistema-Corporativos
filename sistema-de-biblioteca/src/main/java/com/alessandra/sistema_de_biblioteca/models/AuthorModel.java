@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 
@@ -26,10 +28,12 @@ public class AuthorModel implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String biografia;
 
+    @ManyToMany(mappedBy = "autores", fetch = FetchType.LAZY)
+    private Set<BookModel> livros = new HashSet<>();
+
     public UUID getId() {
         return id;
     }
-
     public void setId(UUID id) {
         this.id = id;
     }
@@ -40,6 +44,7 @@ public class AuthorModel implements Serializable {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public LocalDate getDataNascimento() {
         return dataNascimento;
     }
@@ -61,5 +66,11 @@ public class AuthorModel implements Serializable {
         this.biografia = biografia;
     }
 
-
+    public Set<BookModel> getLivros() {
+        return livros;
+    }
+    public void setLivros(Set<BookModel> livros) {
+        this.livros = livros;
+    }
 }
+
